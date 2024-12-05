@@ -31,7 +31,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['.vercel.app']
 
-SITE_ID=5
+SITE_ID=2
 
 # Application definition
 INSTALLED_APPS = [

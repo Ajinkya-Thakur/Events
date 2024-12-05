@@ -25,6 +25,6 @@ class MembersForm(forms.Form):
         email_id = self.cleaned_data.get('email_id')
         if not User.objects.filter(email=email_id).exists():
             raise forms.ValidationError("User does not exist.")
-        if Member.objects.filter(user=User.objects.get(email=email_id)).exists():
+        if Member.objects.filter(event__user=User.objects.get(email=email_id)).exists():
             raise forms.ValidationError("Member already exists.")
         return email_id
