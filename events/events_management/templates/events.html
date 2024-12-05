@@ -1,0 +1,58 @@
+{% extends 'base_event.html' %}
+
+{% block title %}Event Details{% endblock %}
+
+{% block content %}
+
+<div>
+    <div class="text-center mb-4">
+        <h1 class="display-4">My Events</h1>
+        <p class="text-muted">View your events, track your pledges, and create new ones!</p>
+    </div>
+    
+    <div class="mb-4">
+        <button class="btn btn-success w-100" type="button" data-bs-toggle="collapse" data-bs-target="#createEventForm"
+            aria-expanded="false" aria-controls="createEventForm">
+            Create a New Event
+        </button>
+        <div class="collapse mt-3" id="createEventForm">
+            <div class="card card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="event-name" class="form-label">Event Name</label>
+                        <input type="text" class="form-control" id="event-name" name="event_name"
+                            placeholder="Enter event name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="event-description" class="form-label">Description</label>
+                        <textarea class="form-control" id="event-description" name="event_description" rows="3"
+                            placeholder="Enter event description"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="event-amount-pledged" class="form-label">Contribute</label>
+                        <input type="number" class="form-control" id="event-amount-pledged" name="contribution"
+                            placeholder="Enter amount" min="0">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <section class="events-list">
+        <div class="container">
+            <h2 class="mb-4">Your Events</h2>
+            <div class="event-cards">
+                {% for event in events %}
+                <a href="{% url 'event_details' event.id %}" class="event-card">
+                    <h3>{{ event.name }}</h3>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</div>
+
+
+{% endblock %}

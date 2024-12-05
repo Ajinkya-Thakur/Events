@@ -1,0 +1,10 @@
+# Ignore all Python migration files
+**/migrations/*.py
+
+# Django secret key and database url
+*.env
+
+# Python bytecode
+__pycache__/
+*.pyc
+
