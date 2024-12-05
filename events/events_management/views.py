@@ -59,7 +59,7 @@ def event_details(request, event_id):
                 print(expense_form.errors.get('amount', []))
                 return render(request, 'event_details.html', context)
         else:
-            members_form = MembersForm(request.POST)
+            members_form = MembersForm(request.POST, event_id)
             if members_form.is_valid():
                 Member.objects.create(
                     user = User.objects.get(email=members_form.cleaned_data.get('email_id')),

@@ -21,10 +21,14 @@ class MembersForm(forms.Form):
     email_id = forms.EmailField(required=True)
     contribution = forms.IntegerField(required=True, min_value=0)
 
+    def __init__(self, *args, **kwargs):
+        self.event_id = kwargs.pop('event_id', None)
+        super().__init__(*args, **kwargs)
+
     def clean_email_id(self):
         email_id = self.cleaned_data.get('email_id')
         if not User.objects.filter(email=email_id).exists():
             raise forms.ValidationError("User does not exist.")
-        if Member.objects.filter(event__user=User.objects.get(email=email_id)).exists():
+        if User.objects.filter(email=email_id, members__event__id=self.event_id).exists():
             raise forms.ValidationError("Member already exists.")
         return email_id
