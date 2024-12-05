@@ -24,11 +24,16 @@ class MembersForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.event_id = kwargs.pop('event_id', None)
         super().__init__(*args, **kwargs)
-
+ 
     def clean_email_id(self):
         email_id = self.cleaned_data.get('email_id')
-        if not User.objects.filter(email=email_id).exists():
+        
+        try:
+            user = User.objects.get(email=email_id)
+        except User.DoesNotExist:
             raise forms.ValidationError("User does not exist.")
-        if User.objects.filter(email=email_id, members__event__id=self.event_id).exists():
-            raise forms.ValidationError("Member already exists.")
+        
+        if user.members.filter(event__id=self.event_id).exists():
+            raise forms.ValidationError("User is already a member of this event.")
+        
         return email_id
