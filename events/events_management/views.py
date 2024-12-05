@@ -89,4 +89,14 @@ def delete_transaction(request, transaction_id):
     member.save()
     return redirect('event_details', event_id=event_id)
 
+@transaction.atomic
+@login_required
+def delete_event(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    event.delete()
+    return redirect('events')
+ 
+
+
+
 

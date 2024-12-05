@@ -83,6 +83,14 @@ body {
     color: #333;
 }
 
+.btn-xs
+{
+    padding: 1px 5px !important;
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    border-radius: 3px !important;
+}
+
 .hero p {
     font-size: 1.25rem;
     font-weight: 400;
@@ -215,7 +223,7 @@ footer {
 
 /* Events List Section */
 .events-list {
-    padding: 60px 20px;
+    padding: 60px 10px;
     background-color: #ffffff;
     text-align: center;
 }
@@ -224,51 +232,6 @@ footer {
     font-size: 2.5rem;
     color: #27ae60; /* Green */
     margin-bottom: 40px;
-    font-weight: 600;
-}
-
-/* Event Cards */
-.event-cards {
-    display: flex;
-    flex-wrap: wrap; /* Allow cards to wrap */
-    justify-content: space-between; /* Ensure cards are evenly distributed */
-    gap: 20px;
-    margin: 0 auto 40px;
-    max-width: 100%; /* Make sure it fills the entire page */
-    width: 100%; /* Make sure it occupies 100% of the available space */
-}
-
-.event-card {
-    background-color: #d1f2e6; /* Light green background */
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    text-align: left;
-    font-weight: 400;
-    flex: 1 1 calc(33.33% - 20px); /* Grow and shrink as needed, 3 cards per row */
-    box-sizing: border-box;
-    text-decoration: none;
-}
-
-.event-card:active {
-    transform: scale(0.98); /* Slightly shrink the card on click */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add a stronger shadow when clicked */
-    text-decoration: none;
-}
-
-.event-card h3 {
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: #27ae60; /* Green */
-    margin-bottom: 15px;
-}
-
-.event-card p {
-    font-size: 1rem;
-    color: #7f8c8d; /* Soft dark text */
-}
-
-.event-card p strong {
     font-weight: 600;
 }
 

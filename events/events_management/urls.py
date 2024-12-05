@@ -6,5 +6,6 @@ urlpatterns = [
     path('', views.events, name='events'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('<uuid:event_id>/', views.event_details, name='event_details'),
-    path('delete/<uuid:transaction_id>/', views.delete_transaction, name='delete_transaction')
+    path('delete-event/<uuid:event_id>/', views.delete_event, name='delete_event'),
+    path('delete-transaction/<uuid:transaction_id>/', views.delete_transaction, name='delete_transaction')
 ]
