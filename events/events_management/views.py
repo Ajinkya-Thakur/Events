@@ -15,8 +15,7 @@ def events(request):
         pledged_amount = request.POST.get('contribution')
 
         event = Event.objects.create(
-            name=event_name,
-            description=event_description
+            name=event_name
         )
 
         Member.objects.create(
@@ -36,21 +35,21 @@ def events(request):
 @transaction.atomic
 @login_required
 def event_details(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
     user = request.user
+    member = get_object_or_404(Member, user=user, event=event)
     if request.method == 'POST':
         form_type = request.POST.get('form_type')
         if form_type == 'expense_form':
-            expense_form = ExpenseForm(request.POST, balance_amount = Member.objects.get(user = user).balance_amount)
+            expense_form = ExpenseForm(request.POST, balance_amount = member.balance_amount)
             if expense_form.is_valid():
                 heading  = expense_form.cleaned_data.get('heading')
                 expense = expense_form.cleaned_data.get('amount')
                 Transaction.objects.create(
                     heading = heading,
                     expense = expense,
-                    user = user,
-                    event = Event.objects.get(id=event_id)
+                    member = member
                 )
-                member = Member.objects.get(user = user)
                 member.balance_amount -= expense
                 member.save()
                 return redirect(request.path_info)
@@ -59,11 +58,11 @@ def event_details(request, event_id):
                 print(expense_form.errors.get('amount', []))
                 return render(request, 'event_details.html', context)
         else:
-            members_form = MembersForm(request.POST, event_id)
+            members_form = MembersForm(request.POST, event_id=event_id)
             if members_form.is_valid():
                 Member.objects.create(
-                    user = User.objects.get(email=members_form.cleaned_data.get('email_id')),
-                    event = Event.objects.get(id=event_id),
+                    user = get_object_or_404(User, email=members_form.cleaned_data.get('email_id')) ,
+                    event = event,
                     amount_pledged = members_form.cleaned_data.get('contribution'),
                     balance_amount = members_form.cleaned_data.get('contribution')
                 )
@@ -81,18 +80,18 @@ def event_details(request, event_id):
 @login_required
 def delete_transaction(request, transaction_id):
     transaction = get_object_or_404(Transaction, id=transaction_id)
-    member = Member.objects.get(user=transaction.user)
-    event_id = transaction.event.id
+    member = transaction.member
     if request.method == 'POST':
         transaction.delete()
-    member.balance_amount += transaction.expense
-    member.save()
-    return redirect('event_details', event_id=event_id)
+        member.balance_amount += transaction.expense
+        member.save()
+    return redirect('event_details', event_id=member.event.id)
 
 @transaction.atomic
 @login_required
 def delete_event(request, event_id):
     event = get_object_or_404(Event, id=event_id)
+    get_object_or_404(Member, user=request.user, event=event)
     event.delete()
     return redirect('events')
  

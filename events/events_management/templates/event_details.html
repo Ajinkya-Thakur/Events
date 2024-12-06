@@ -124,13 +124,13 @@
                 <tbody>
                     {% for transaction in transactions %}
                     <tr>
-                        <td>{{ transaction.user.first_name }}
+                        <td>{{ transaction.member.user.first_name }}
                             <br>
-                            <span class="email-font">{{ transaction.user.email }}</span>
+                            <span class="email-font">{{ transaction.member.user.email }}</span>
                         </td>
                         <td>{{ transaction.heading }}</td>
                         <td>{{ transaction.expense|intcomma }}</td>
-                        {% if transaction.user.email == user.email %}
+                        {% if transaction.member.user.email == user.email %}
                         <td>
                             <!-- Trash Icon with Modal Trigger -->
                             <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"

@@ -27,7 +27,7 @@ class MembersForm(forms.Form):
  
     def clean_email_id(self):
         email_id = self.cleaned_data.get('email_id')
-        
+        email_id = email_id.lower()
         try:
             user = User.objects.get(email=email_id)
         except User.DoesNotExist:

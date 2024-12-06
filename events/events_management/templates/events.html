@@ -22,12 +22,7 @@
                     <div class="mb-3">
                         <label for="event-name" class="form-label">Event Name</label>
                         <input type="text" class="form-control" id="event-name" name="event_name"
-                            placeholder="Enter event name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="event-description" class="form-label">Description</label>
-                        <textarea class="form-control" id="event-description" name="event_description" rows="3"
-                            placeholder="Enter event description"></textarea>
+                            placeholder="Enter event name" maxlength="50" required>
                     </div>
                     <div class="mb-3">
                         <label for="event-amount-pledged" class="form-label">Contribute</label>
@@ -44,12 +39,6 @@
         <h2 class="mb-4">Your Events</h2>
 
         <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Event Name</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
             <tbody>
                 {% for event in events %}
                 <tr>

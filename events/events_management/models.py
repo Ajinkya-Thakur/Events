@@ -4,8 +4,7 @@ import uuid
 
 class Event(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=20)
-    description = models.TextField(blank=True, null=True)
+    name = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -46,13 +45,8 @@ class Transaction(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     heading = models.CharField(max_length=20)
     expense = models.PositiveIntegerField()
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='transactions'
-    )
-    event = models.ForeignKey(
-        Event,
+    member = models.ForeignKey(
+        Member,
         on_delete=models.CASCADE,
         related_name='transactions'
     )
