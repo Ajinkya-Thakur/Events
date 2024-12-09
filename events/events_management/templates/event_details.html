@@ -55,7 +55,7 @@
             <div class="mb-3">
                 <label for="expenseHeading" class="form-label">Expense Heading</label>
                 <input type="text" class="form-control" id="expenseHeading" name="heading"
-                    value="{{ expense_form.heading.value|default:'' }}" required>
+                    value="{{ expense_form.heading.value|default:'' }}" maxlength="200" required>
             </div>
             <div class="mb-3">
                 <label for="expenseAmount" class="form-label">Amount</label>
